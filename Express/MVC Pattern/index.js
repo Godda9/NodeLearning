@@ -1,5 +1,5 @@
 const express = require('express');
-const dataController = require('./controllers/data.controller');
+const dataRouter = require('./routers/data.router');
 
 
 // INIT
@@ -18,9 +18,7 @@ app.use(express.json());
 
 
 // ROUTES
-app.get('/data', dataController.getData);
-app.get('/data/:id', dataController.getDataById);
-app.post('/data', dataController.postData);
+app.use('/data', dataRouter);
 
 
 // LAUNCH
