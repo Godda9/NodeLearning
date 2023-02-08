@@ -8,6 +8,7 @@ const data = [
     { id: 2, text: 'abc2', },
 ];
 
+
 // MIDDLEWARE
 app.use((req, res, next) => {
     const start = Date.now();
@@ -16,6 +17,7 @@ app.use((req, res, next) => {
     const delta = Date.now() - start;
     console.log(`${req.method} ${req.url} ${delta}ms`);
 });
+
 
 // MAIN
 app.get('/data', (req, res) => {
@@ -33,6 +35,7 @@ app.get('/data/:id', (req, res) => {
         });
     }
 });
+
 
 // LAUNCH
 app.listen(PORT, () => {
