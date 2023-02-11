@@ -29,8 +29,6 @@ const loadPlanetsData = () => {
 }    
     
 
-
-
 // finding habitable planets
 const habitablePlanet = (planetObject) => {
     return planetObject['koi_disposition'] === 'CONFIRMED' &&
@@ -40,8 +38,12 @@ const habitablePlanet = (planetObject) => {
 }
 
 
+// GET ALL DATA FUNCTION
+const getAllData = () => results;
+
+
 // EXPORT
 module.exports = {
+    getAllData,
     loadPlanetsData,
-    planets: results,
 };

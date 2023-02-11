@@ -13,7 +13,11 @@ const launch = {
 
 launches.set(launch.flightNumber, launch);
 
+// GET ALL DATA FUNCTION
+const getAllData = () => Array.from(launches.values());
+
+
 module.exports = {
-    launches,
+    getAllData,
 }
 
