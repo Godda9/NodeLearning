@@ -1,11 +1,12 @@
 const express= require('express');
-const { getAllLaunches } = require('./launches.controller');
+const { getAllLaunches, addNewLaunch } = require('./launches.controller');
 
 // VARS
 const launchesRouter = express.Router();
 
 // METHODS
-launchesRouter.get('/launches', getAllLaunches);
+launchesRouter.get('/', getAllLaunches);
+launchesRouter.post('/', addNewLaunch);
 
 // EXPORT
 module.exports = launchesRouter;

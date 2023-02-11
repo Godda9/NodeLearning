@@ -5,7 +5,7 @@ const planetsController = require('./planets.controller');
 const planetsRouter = express.Router();
 
 // MAIN
-planetsRouter.get('/planets', planetsController.getAllPlanets);
+planetsRouter.get('/', planetsController.getAllPlanets);
 
 // EXPORT
 module.exports = planetsRouter;
