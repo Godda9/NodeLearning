@@ -28,9 +28,23 @@ const addNewLaunch = (item) => {
     }));
 }
 
+// REMOVE LAUNCH
+const removeLaunch = (id) => {
+    const removedLaunch = launches.get(id);
+    removedLaunch.upcoming = false;
+    removedLaunch.success = false;
+    return removedLaunch;
+}
+
+// CHECK ID
+const existsLaunchWithId = (id) => launches.has(id);
+
+
 
 module.exports = {
     getAllData, 
     addNewLaunch,
+    removeLaunch,
+    existsLaunchWithId,
 }
 

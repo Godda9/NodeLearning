@@ -29,8 +29,27 @@ const addNewLaunch = (req, res) => {
     launchesModel.addNewLaunch(launch);
 }
 
+const removeLaunch = (req, res) => {
+    const id = +req.params.id;
+
+    // if launch doesnt exist
+    if (!launchesModel.existsLaunchWithId(id)) {
+        return res.status(404).json({
+            error: 'Not found',
+        });
+    }
+
+    const removedLaunch = launchesModel.removeLaunch(id);
+
+    return res.status(200).json({
+        message: 'Removed successfully',
+        object: removedLaunch,
+    });
+}
+
 // EXPORT
 module.exports = {
     getAllLaunches,
     addNewLaunch,
+    removeLaunch,
 }
