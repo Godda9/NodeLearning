@@ -27,6 +27,9 @@ const addNewLaunch = (req, res) => {
 
     // add
     launchesModel.addNewLaunch(launch);
+    return res.status(200).json({
+        object: launch,
+    });
 }
 
 const removeLaunch = (req, res) => {

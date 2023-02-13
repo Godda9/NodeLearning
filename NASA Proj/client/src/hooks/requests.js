@@ -22,7 +22,7 @@ async function httpSubmitLaunch(launch) {
   // Submit given launch data to launch system.
   try {
     return await fetch(`${API_BASE_URL}/launches`, {
-      method: 'post',
+      method: "post",
       headers: {
         "Content-Type": "application/json",
       },
