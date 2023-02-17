@@ -3,7 +3,6 @@ const launchesDB = require('./launches.mongo');
 const planetsDB = require('./planets.mongo');
 
 
-const launches = new Map();
 const DEFAULT_FLIGHT_NUMBER = 100;
 
 
@@ -62,16 +61,23 @@ const addNewLaunch = async(item) => {
 
 
 // REMOVE LAUNCH
-const removeLaunch = (id) => {
-    const removedLaunch = launches.get(id);
-    removedLaunch.upcoming = false;
-    removedLaunch.success = false;
-    return removedLaunch;
+const removeLaunch = async(id) => {
+    const removed = await launchesDB.updateOne({
+        flightNumber: id,
+    }, {
+        upcoming: false,
+        success: false,
+    });
+    return removed.ok === 1 && removed.modifiedCount === 1;
 }
 
 
 // CHECK ID
-const existsLaunchWithId = (id) => launches.has(id);
+const existsLaunchWithId = async(id) => {
+    return await launchesDB.findOne({
+        flightNumber: id,
+    });
+}
 
 
 module.exports = {

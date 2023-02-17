@@ -32,22 +32,28 @@ const addNewLaunch = async(req, res) => {
     });
 }
 
-const removeLaunch = (req, res) => {
+const removeLaunch = async(req, res) => {
     const id = +req.params.id;
 
-    // if launch doesnt exist
-    if (!launchesModel.existsLaunchWithId(id)) {
+    // if launch doesn't existc
+    const existsLaunch = await launchesModel.existsLaunchWithId(id)
+    if (!existsLaunch) {
         return res.status(404).json({
             error: 'Not found',
         });
     }
 
-    const removedLaunch = launchesModel.removeLaunch(id);
+    const removed = await launchesModel.removeLaunch(id);
 
-    return res.status(200).json({
-        message: 'Removed successfully',
-        object: removedLaunch,
-    });
+    if (!removed) {
+        return res.status(400).json({
+            error: 'Launch is not removed',
+        });
+    } else {
+        return res.status(200).json({
+            ok: true,
+        });
+    }
 }
 
 // EXPORT
