@@ -1,11 +1,11 @@
 const launchesModel = require('../../models/launches.model');
 
 // FUNCTIONS
-const getAllLaunches = (req, res) => {
-    return res.status(200).json(launchesModel.getAllData());
+const getAllLaunches = async(req, res) => {
+    return res.status(200).json(await launchesModel.getAllData());
 }
 
-const addNewLaunch = (req, res) => {
+const addNewLaunch = async(req, res) => {
     const launch = req.body;
 
     // check 1
@@ -26,7 +26,7 @@ const addNewLaunch = (req, res) => {
     }
 
     // add
-    launchesModel.addNewLaunch(launch);
+    await launchesModel.addNewLaunch(launch);
     return res.status(201).json({
         object: launch,
     });

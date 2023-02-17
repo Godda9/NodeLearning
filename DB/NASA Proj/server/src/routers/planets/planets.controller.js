@@ -1,8 +1,8 @@
 const planetsModel  = require('../../models/planets.model');
 
 // FUNCTIONS
-const getAllPlanets = (req, res) => {
-    return res.status(200).json(planetsModel.getAllData());
+const getAllPlanets = async(req, res) => {
+    return res.status(200).json(await planetsModel.getAllData());
 }
 
 // EXPORT

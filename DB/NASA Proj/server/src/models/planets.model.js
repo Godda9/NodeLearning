@@ -3,8 +3,7 @@ const { parse } = require('csv-parse');
 const fs = require('fs');
 const path = require('path');
 
-// VARS
-const results = [];
+const planetsDB = require('./planets.mongo');
 
 // READ
 const loadPlanetsData = () => {
@@ -14,15 +13,20 @@ const loadPlanetsData = () => {
             comment: '#',
             columns: true,
         }))
-        .on('data', (chunk) => {
+        .on('data', async(chunk) => {
             if (habitablePlanet(chunk)) {
-                results.push(chunk);
+                //results.push(chunk);
+
+                // TODO create -> inser + update = upsert
+                saveDataDB(chunk);
             }
         })
         .on('error', (error) => {
             reject(error);
         })
-        .on('end', () => {
+        .on('end', async() => {
+            const countPlanetsFound = (await getAllData()).length;
+            console.log(countPlanetsFound)
             resolve();
         });
     });
@@ -39,7 +43,26 @@ const habitablePlanet = (planetObject) => {
 
 
 // GET ALL DATA FUNCTION
-const getAllData = () => results;
+const getAllData = async() => {
+    //return results;
+    return await planetsDB.find({});
+};
+
+
+const saveDataDB = async(chunk) => {
+    // TODO create -> inser + update = upsert
+    try {
+        await planetsDB.updateOne({
+            keplerName: chunk.kepler_name,
+        }, {
+            keplerName: chunk.kepler_name,
+        }, {
+            upsert: true,
+        });
+    } catch (error) {
+        console.error(`Colud not save planet: ${error}`);
+    }
+}
 
 
 // EXPORT
